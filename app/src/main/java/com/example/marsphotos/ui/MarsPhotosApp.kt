@@ -23,7 +23,7 @@ import com.example.marsphotos.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MarsPhotosApp(model: MarsViewModel = viewModel()) {
+fun MarsPhotosApp(model: MarsViewModel = viewModel(factory = MarsViewModel.Factory)) {
     Scaffold(topBar = { TopAppBar(title = { Text(stringResource(R.string.app_name)) }) }) { padding ->
         HomeScreen(
             state = model.uiState,
