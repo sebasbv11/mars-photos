@@ -10,6 +10,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.marsphotos.MarsPhotosApplication
 import com.example.marsphotos.data.MarsPhotosRepository
+import com.example.marsphotos.network.MarsPhoto
 import java.io.IOException
 import kotlinx.coroutines.launch
 import kotlinx.serialization.SerializationException
@@ -17,7 +18,7 @@ import retrofit2.HttpException
 
 sealed interface MarsUiState {
     data object Loading : MarsUiState
-    data class Success(val photoCount: Int) : MarsUiState
+    data class Success(val photos: List<MarsPhoto>) : MarsUiState
     data object Error : MarsUiState
 }
 
@@ -33,7 +34,7 @@ class MarsViewModel(private val repository: MarsPhotosRepository) : ViewModel() 
         uiState = MarsUiState.Loading
         viewModelScope.launch {
             uiState = try {
-                MarsUiState.Success(repository.getPhotos().size)
+                MarsUiState.Success(repository.getPhotos())
             } catch (_: IOException) {
                 MarsUiState.Error
             } catch (_: HttpException) {
@@ -53,3 +54,4 @@ class MarsViewModel(private val repository: MarsPhotosRepository) : ViewModel() 
         }
     }
 }
+

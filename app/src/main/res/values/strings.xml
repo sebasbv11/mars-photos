@@ -7,4 +7,5 @@
         <item quantity="one">Se encontró %d foto de Marte.</item>
         <item quantity="other">Se encontraron %d fotos de Marte.</item>
     </plurals>
+    <string name="mars_photo">Foto de Marte %1$s</string>
 </resources>
